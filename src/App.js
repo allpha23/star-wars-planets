@@ -1,9 +1,13 @@
 import React from 'react';
+import PlanetsTable from './components/PlanetsTable';
 import './App.css';
 
 function App() {
   return (
-    <span>Projeto Star Wars!</span>
+    <div>
+      <span>Projeto Star Wars!</span>
+      <PlanetsTable />
+    </div>
   );
 }
 
