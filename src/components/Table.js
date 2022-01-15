@@ -1,23 +1,13 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import MyContext from '../context/MyContext';
 import planetsApi from './planetsApi';
-import './PlanetsTable.css';
 
-export default class planetsTable extends Component {
-  constructor() {
-    super();
-    this.state = {
-      headerKeys: [],
-      results: [],
-    };
+export default function Table() {
+  const { filterName } = useContext(MyContext);
+  const [results, setResults] = useState([]);
+  const [headerKeys, setHeaderKeys] = useState([]);
 
-    this.tablePlanets = this.tablePlanets.bind(this);
-  }
-
-  componentDidMount() {
-    this.tablePlanets();
-  }
-
-  async tablePlanets() {
+  async function tablePlanets() {
     const getPlanets = await planetsApi();
     const data = getPlanets.results[0];
     const keys = Object.keys(data);
@@ -25,19 +15,20 @@ export default class planetsTable extends Component {
       nine: 9,
       one: 1,
     };
+
     keys.splice(number.nine, number.one);
     const planetInformations = getPlanets.results;
 
-    this.setState({
-      headerKeys: keys,
-      results: planetInformations,
-    });
+    setHeaderKeys(keys);
+    setResults(planetInformations);
+    console.log(filterName);
   }
 
-  render() {
-    const { headerKeys, results } = this.state;
+  function renderPlanet() {
+    const filterResults = results.filter((el) => el.name.includes(filterName));
+
     return (
-      <table>
+      <table className="table table-dark table-striped table-hover">
         <thead>
           <tr>
             { headerKeys.map((planet) => (
@@ -45,7 +36,7 @@ export default class planetsTable extends Component {
             ))}
           </tr>
         </thead>
-        { results.map((planet) => (
+        { filterResults.map((planet) => (
           <tbody key={ planet.name }>
             <tr>
               {headerKeys.map((element) => (
@@ -57,4 +48,14 @@ export default class planetsTable extends Component {
       </table>
     );
   }
+
+  useEffect(() => {
+    tablePlanets();
+  }, []);
+
+  return (
+    <div>
+      {renderPlanet()}
+    </div>
+  );
 }
