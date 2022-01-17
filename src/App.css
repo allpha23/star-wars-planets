@@ -1,3 +1,9 @@
+body {
+  background-image: url("http://st.gde-fon.com/wallpapers_original/563817_vselennaya_nebo_svet_koltsa_planeta_zvezdyi_1920x1200_www.Gde-Fon.com.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .App {
   text-align: center;
 }
