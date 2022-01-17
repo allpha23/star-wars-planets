@@ -4,10 +4,13 @@ import MyContext from './MyContext';
 
 export default function AppProvider({ children }) {
   const [filterName, setFilterName] = useState('');
+  const [filters, setFilters] = useState({});
 
   const value = {
     filterName,
     setFilterName,
+    filters,
+    setFilters,
   };
 
   return (
@@ -22,5 +25,5 @@ export default function AppProvider({ children }) {
 }
 
 AppProvider.propTypes = {
-  children: PropTypes.objectOf.isRequired,
+  children: PropTypes.node.isRequired,
 };

@@ -11,7 +11,7 @@ export default function FilterBar() {
           className="form-control mb-3"
           data-testid="name-filter"
           type="text"
-          placeholder="Filtra por nome"
+          placeholder="Filtrar por nome"
           value={ filterName }
           onChange={ (e) => setFilterName(e.target.value) }
         />

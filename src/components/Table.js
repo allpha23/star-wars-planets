@@ -3,7 +3,7 @@ import MyContext from '../context/MyContext';
 import planetsApi from './planetsApi';
 
 export default function Table() {
-  const { filterName } = useContext(MyContext);
+  const { filterName, filters } = useContext(MyContext);
   const [results, setResults] = useState([]);
   const [headerKeys, setHeaderKeys] = useState([]);
 
@@ -21,11 +21,22 @@ export default function Table() {
 
     setHeaderKeys(keys);
     setResults(planetInformations);
-    console.log(filterName);
   }
 
   function renderPlanet() {
-    const filterResults = results.filter((el) => el.name.includes(filterName));
+    let filteredResults = [];
+    function compare(tag, operator, num) {
+      if (operator === 'maior que') return parseInt(tag, 10) > num;
+      if (operator === 'menor que') return parseInt(tag, 10) < num;
+      if (operator === 'igual a') return tag === num;
+    }
+
+    if (filters.number >= 0) {
+      filteredResults = results.filter((el) => el.name.includes(filterName))
+        .filter((el) => compare(el[filters.tag], filters.operator, filters.number));
+    } else {
+      filteredResults = results.filter((el) => el.name.includes(filterName));
+    }
 
     return (
       <table className="table table-dark table-striped table-hover">
@@ -36,7 +47,7 @@ export default function Table() {
             ))}
           </tr>
         </thead>
-        { filterResults.map((planet) => (
+        { filteredResults.map((planet) => (
           <tbody key={ planet.name }>
             <tr>
               {headerKeys.map((element) => (
