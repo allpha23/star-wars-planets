@@ -2,24 +2,22 @@ import React, { useContext, useState } from 'react';
 import MyContext from '../context/MyContext';
 
 export default function Filters() {
-  const { setFilters } = useContext(MyContext);
+  const { setFilters, filters } = useContext(MyContext);
   const [tag, setTag] = useState('population');
   const [operator, setOperator] = useState('maior que');
   const [number, setNumber] = useState(0);
-  const [selected, setSelected] = useState([]);
 
   function handleClick() {
     const getFilter = {
-      tag,
-      operator,
-      number,
+      name: tag,
+      toComp: operator,
+      quant: number,
     };
-    setFilters(getFilter);
-    setSelected([...selected, { value: tag }]);
+    setFilters([...filters, getFilter]);
   }
 
   function contain(option) {
-    return selected.some((select) => select.value === option);
+    return filters.some((select) => select.name === option);
   }
 
   function renderOption() {

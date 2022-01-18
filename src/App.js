@@ -4,6 +4,7 @@ import Table from './components/Table';
 import './App.css';
 import FilterBar from './components/FilterBar';
 import Filters from './components/Filters';
+import Select from './components/Select';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         </div>
         <FilterBar />
         <Filters />
+        <Select />
         <Table />
       </div>
     </AppProvider>
