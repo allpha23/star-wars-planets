@@ -17,9 +17,16 @@ export default function Table() {
         { filteredResults.map((planet) => (
           <tbody key={ planet.name }>
             <tr>
-              {headerKeys.map((element) => (
-                <td key={ element }>{planet[element]}</td>
-              ))}
+              {headerKeys.map((element, index) => {
+                if (index === 0) {
+                  return (
+                    <td data-testid="planet-name" key={ element }>{planet[element]}</td>
+                  );
+                }
+                return (
+                  <td key={ element }>{planet[element]}</td>
+                );
+              })}
             </tr>
           </tbody>
         ))}

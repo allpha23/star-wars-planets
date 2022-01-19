@@ -5,6 +5,7 @@ import './App.css';
 import FilterBar from './components/FilterBar';
 import Filters from './components/Filters';
 import Select from './components/Select';
+import SortBar from './components/SortBar';
 
 function App() {
   return (
@@ -14,7 +15,10 @@ function App() {
           <h1>Projeto Star Wars!</h1>
         </div>
         <FilterBar />
-        <Filters />
+        <div className="d-flex justify-content-around">
+          <Filters />
+          <SortBar />
+        </div>
         <Select />
         <Table />
       </div>
